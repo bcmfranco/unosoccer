@@ -26,11 +26,24 @@
       <div id="pointer">
         <div id="time">0</div>
         <div id="points">
-          <span class="name">NOB</span>
-          <span class="goals">0</span>
-          <span class="goals">0</span>
+          <span class="name border_r">NOB</span>
+          <span class="goals border_r">0</span>
+          <span class="goals border_r">0</span>
           <span class="name">IND</span>
         </div>
+      </div>
+
+      <div id="match_list">
+        match event list
+      </div>
+
+      <div @click="roll_dice" id="dice">
+        {{ this.showDiceResult }}
+      </div>
+
+
+      <div id="joystick">
+        joystick
       </div>
 
     </aside>
@@ -43,12 +56,26 @@ export default {
 
   },
   data() {
-
+    return {
+      showDiceResult: 1,
+    }
   },
   mounted() {
 
   },
-  methods(){
+  methods: {
+    roll_dice() {
+      this.showDiceResult = "";
+
+      this.dice = Math.floor(Math.random() * 6) + 1;
+      console.log("dice", this.dice);
+
+      setTimeout(() => {
+        this.showDiceResult = this.dice;
+      }, 1000);
+
+      return this.showDiceResult;
+    }
 
   },
   computed: {
@@ -56,6 +83,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -101,7 +129,7 @@ export default {
 
 #pointer{
   border: 1px solid black;
-  width: 200px;
+  width: 300px;
   height: 100px;
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -116,6 +144,21 @@ export default {
 #pointer #points{
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 3fr;
+  line-height: 45px;
+}
+
+.border_r{
+  border-right: 1px solid black;
+}
+
+#dice{
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
 }
 
 @media (max-width: 480px) {
