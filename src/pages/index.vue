@@ -5,16 +5,16 @@
       <div id="teams_wrapper">
         <div id="team_local">
           <div class="team">
-            <span class="name">NOB</span>
-            <span class="ofensive">4</span>
-            <span class="defensive">5</span>
+            <span class="coi">{{ this.home_team.coi }}</span>
+            <span class="ofensive">{{ this.home_team.ofe }}</span>
+            <span class="defensive">{{ this.home_team.def }}</span>
           </div>
         </div>
         <div id="team_away">
           <div class="team">
-            <span class="name">IND</span>
-            <span class="ofensive">7</span>
-            <span class="defensive">4</span>
+            <span class="coi">{{ this.away_team.coi }}</span>
+            <span class="ofensive">{{ this.away_team.ofe }}</span>
+            <span class="defensive">{{ this.away_team.def }}</span>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
     <aside id="aside_right">
       
       <div id="pointer">
-        <div id="time">{{ this.current_time }}</div>
+        <div id="time" @click="get_time">{{ this.current_time }}</div>
         <div id="points">
           <span class="name border_r">NOB</span>
           <span class="goals border_r">0</span>
@@ -38,7 +38,8 @@
       </div>
 
       <div id="screen">
-        screen
+        <p class="screen_advice">{{ this.advice_top }}</p>
+        <p class="screen_advice">{{ this.advice_bottom }}</p>
       </div>
 
       <div id="dice">
@@ -64,6 +65,10 @@ export default {
       showDiceResult: 1,
       current_time: 0,
       time_gap: 15, // Cada cuántos minutos se realiza un ataque
+      advice_top: "El partido está por comenzar",
+      advice_bottom : "La pelota no se mancha",
+      home_team: {"ofe": 4, "def": 5, "name": "Newells Olds Boys", "coi": "NOB"},
+      away_team: {"ofe": 7, "def": 4, "name": "Independiente", "coi": "IND"},
     }
   },
   mounted() {
@@ -87,16 +92,26 @@ export default {
 
       if(this.current_time < 90){
         this.current_time += 15; 
+
+        this.new_attack();
       } 
-
-      console.log(this.current_time);
-
     },
 
     new_attack(){ // Genera un ataque
 
-      this.get_time();
+      if(this.current_time % 2 === 0){ // Ataca el Equipo Visitante
 
+        this.advice_top = "Ataca el Equipo Visitante";
+        this.advice_bottom = this.away_team.coi+ " ataca con "+ this.away_team.ofe +"+ [ Apretá el Joystick 2]";
+
+        console.log("hi");
+      } else {
+
+        this.advice_top = "Ataca el Equipo Local";
+        this.advice_bottom = this.home_team.coi+ " ataca con "+ this.home_team.ofe +"+ [ Apretá el Joystick 1]";
+
+        console.log("hao");
+      }
     }
 
   },
@@ -194,6 +209,10 @@ export default {
   line-height: 50px;
   background-color: #3498db;
   color: white;
+  text-align: center;
+}
+
+#screen{
   text-align: center;
 }
 
