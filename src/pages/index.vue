@@ -24,7 +24,7 @@
     <aside id="aside_right">
       
       <div id="pointer">
-        <div id="time">0</div>
+        <div id="time">{{ this.current_time }}</div>
         <div id="points">
           <span class="name border_r">NOB</span>
           <span class="goals border_r">0</span>
@@ -46,8 +46,8 @@
       </div>
 
       <div id="joysticks">
-        <div class="joystick button_down" id="joystick_1" @click="roll_dice">joystick 1</div>
-        <div class="joystick button_down" id="joystick_2" @click="roll_dice">joystick 2</div>
+        <div class="joystick button_down" id="joystick_1" @click="new_attack">joystick 1</div>
+        <div class="joystick button_down" id="joystick_2" @click="new_attack">joystick 2</div>
       </div>
 
     </aside>
@@ -62,13 +62,15 @@ export default {
   data() {
     return {
       showDiceResult: 1,
+      current_time: 0,
+      time_gap: 15, // Cada cuántos minutos se realiza un ataque
     }
   },
   mounted() {
 
   },
   methods: {
-    roll_dice() {
+    roll_dice() { // Rola el dado
       this.showDiceResult = "";
 
       this.dice = Math.floor(Math.random() * 6) + 1;
@@ -79,6 +81,22 @@ export default {
       }, 600);
 
       return this.showDiceResult;
+    },
+
+    get_time(){ // Aumenta un time_gap al reloj
+
+      if(this.current_time < 90){
+        this.current_time += 15; 
+      } 
+
+      console.log(this.current_time);
+
+    },
+
+    new_attack(){ // Genera un ataque
+
+      this.get_time();
+
     }
 
   },
