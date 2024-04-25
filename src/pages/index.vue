@@ -37,13 +37,17 @@
         match event list
       </div>
 
-      <div @click="roll_dice" id="dice">
+      <div id="screen">
+        screen
+      </div>
+
+      <div id="dice">
         {{ this.showDiceResult }}
       </div>
 
-
-      <div id="joystick">
-        joystick
+      <div id="joysticks">
+        <div class="joystick button_down" id="joystick_1" @click="roll_dice">joystick 1</div>
+        <div class="joystick button_down" id="joystick_2" @click="roll_dice">joystick 2</div>
       </div>
 
     </aside>
@@ -72,7 +76,7 @@ export default {
 
       setTimeout(() => {
         this.showDiceResult = this.dice;
-      }, 1000);
+      }, 600);
 
       return this.showDiceResult;
     }
@@ -147,10 +151,6 @@ export default {
   line-height: 45px;
 }
 
-.border_r{
-  border-right: 1px solid black;
-}
-
 #dice{
   border: 1px solid black;
   width: 50px;
@@ -159,6 +159,43 @@ export default {
   line-height: 50px;
   font-size: 20px;
   border-radius: 5px;
+}
+
+#joysticks{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 300px;
+  justify-items: center;
+}
+
+.joystick{
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 50px;
+  width: 80px;
+  line-height: 50px;
+  background-color: #3498db;
+  color: white;
+  text-align: center;
+}
+
+/* Effects */
+
+.border_r{
+  border-right: 1px solid black;
+}
+
+.button_down{
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.button_down{
+  padding: 10px 20px;
+}
+
+.button_down:active {
+  transform: translateY(10px);
 }
 
 @media (max-width: 480px) {
