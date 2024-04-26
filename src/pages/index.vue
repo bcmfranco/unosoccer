@@ -6,14 +6,14 @@
         <div id="team_local">
           <div class="team">
             <span class="coi">{{ this.home_team.coi }}</span>
-            <span class="ofensive">{{ this.home_team.ofe }}</span>
+            <span class="offensive">{{ this.home_team.ofe }}</span>
             <span class="defensive">{{ this.home_team.def }}</span>
           </div>
         </div>
         <div id="team_away">
           <div class="team">
             <span class="coi">{{ this.away_team.coi }}</span>
-            <span class="ofensive">{{ this.away_team.ofe }}</span>
+            <span class="offensive">{{ this.away_team.ofe }}</span>
             <span class="defensive">{{ this.away_team.def }}</span>
           </div>
         </div>
@@ -43,12 +43,12 @@
       </div>
 
       <div id="dice">
-        {{ this.showDiceResult }}
+        {{ this.dice }}
       </div>
 
       <div id="joysticks">
-        <div class="joystick button_down" id="joystick_1" @click="new_attack">joystick 1</div>
-        <div class="joystick button_down" id="joystick_2" @click="new_attack">joystick 2</div>
+        <div class="joystick button_down" id="joystick_1" @click="joystick(1)">joystick 1</div>
+        <div class="joystick button_down" id="joystick_2" @click="joystick(2)">joystick 2</div>
       </div>
 
     </aside>
@@ -62,13 +62,17 @@ export default {
   },
   data() {
     return {
-      showDiceResult: 1,
+      dice: null,
       current_time: 0,
       time_gap: 15, // Cada cuántos minutos se realiza un ataque
       advice_top: "El partido está por comenzar",
       advice_bottom : "La pelota no se mancha",
       home_team: {"ofe": 4, "def": 5, "name": "Newells Olds Boys", "coi": "NOB"},
       away_team: {"ofe": 7, "def": 4, "name": "Independiente", "coi": "IND"},
+      attacker_player: 1,
+      offensive_energy : 1,
+      defensive_energy : 1,
+      attack : {"offensive": 1, "defensive": 1}
     }
   },
   mounted() {
@@ -76,43 +80,64 @@ export default {
   },
   methods: {
     roll_dice() { // Rola el dado
-      this.showDiceResult = "";
-
-      this.dice = Math.floor(Math.random() * 6) + 1;
-      console.log("dice", this.dice);
-
       setTimeout(() => {
-        this.showDiceResult = this.dice;
+        this.dice = Math.floor(Math.random() * 6) + 1;
+        console.log("dice", this.dice);
       }, 600);
 
-      return this.showDiceResult;
+      return this.dice;
     },
 
-    get_time(){ // Aumenta un time_gap al reloj
-
-      if(this.current_time < 90){
-        this.current_time += 15; 
-
-        this.new_attack();
-      } 
-    },
-
-    new_attack(){ // Genera un ataque
-
-      if(this.current_time % 2 === 0){ // Ataca el Equipo Visitante
-
+    get_attacker(){ // Determina quién está atacando de acuerdo al timer
+      if (this.current_time % 2 === 0) {
         this.advice_top = "Ataca el Equipo Visitante";
-        this.advice_bottom = this.away_team.coi+ " ataca con "+ this.away_team.ofe +"+ [ Apretá el Joystick 2]";
-
-        console.log("hi");
+        this.advice_bottom = this.away_team.coi + " ataca con " + this.away_team.ofe + "+ [ Apretá el Joystick 2]";
+        this.attacker_player = 2;
+        this.offensive_energy = this.away_team.ofe;
+        this.defensive_energy = this.home_team.def;
       } else {
-
         this.advice_top = "Ataca el Equipo Local";
-        this.advice_bottom = this.home_team.coi+ " ataca con "+ this.home_team.ofe +"+ [ Apretá el Joystick 1]";
-
-        console.log("hao");
+        this.advice_bottom = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ [ Apretá el Joystick 1]";
+        this.attacker_player = 1;
+        this.offensive_energy = this.home_team.ofe;
+        this.defensive_energy = this.away_team.def;
       }
+
+      return this;
+    },
+
+    get_time() { // Aumenta un time_gap al reloj
+      if (this.current_time < 90) {
+        this.current_time += 15;
+        this.new_attack();
+      }
+    },
+
+    new_attack() {
+
+      this.get_attacker();
+
+    },
+
+    joystick(){
+
+        setTimeout(() => {
+          this.dice = Math.floor(Math.random() * 6) + 1;
+
+          console.log("this.offensive_energy", this.offensive_energy);
+          console.log("this.dice", this.dice);
+
+          this.attack.offensive = this.offensive_energy + this.dice;
+
+          console.log("this.attack.offensive", this.attack.offensive);
+
+        }, 600);
+
+
+
     }
+
+
 
   },
   computed: {

@@ -1,12 +1,3 @@
-+ Que al agregar un gasto limpie el input de item y responsible
++ Terminar new_attack()
 
-+ Alinear correctamente los valores numéricos para que queden encolumnados
-+ Mejorar el brand
-+ Mejorar el estilo general, cambiar los colores, ponerle salsa
-
-+ Modificar el estilo del input de gastos y responsables, tiene que esyar en una sola línea
-
-+ Tiene que dejar agregar gastos de $0, porque es una posiblidad, no así los gastos en negativo
-
-
-+ Agregar funcionalidad de whatsapp
+++ El joystick funciona bien, hay que hacer que distinga entre si tiene que sumarle el dado al ataque o a la defensa
