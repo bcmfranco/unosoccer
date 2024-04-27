@@ -47,8 +47,8 @@
       </div>
 
       <div id="joysticks">
-        <div class="joystick button_down" id="joystick_1" @click="joystick(1)">joystick 1</div>
-        <div class="joystick button_down" id="joystick_2" @click="joystick(2)">joystick 2</div>
+        <div class="joystick button_down" id="joystick_1" @click="joystick_1(1)">joystick 1</div>
+        <div class="joystick button_down" id="joystick_2" @click="joystick_2(2)">joystick 2</div>
       </div>
 
     </aside>
@@ -72,7 +72,7 @@ export default {
       attacker_player: 1,
       offensive_energy : 1,
       defensive_energy : 1,
-      attack : {"offensive": 1, "defensive": 1}
+      attack : {"power": null, "status": 0}
     }
   },
   mounted() {
@@ -95,12 +95,16 @@ export default {
         this.attacker_player = 2;
         this.offensive_energy = this.away_team.ofe;
         this.defensive_energy = this.home_team.def;
+        this.matter_energy_1 = this.away_team.ofe;
+        this.matter_energy_2 = this.home_team.def;
       } else {
         this.advice_top = "Ataca el Equipo Local";
         this.advice_bottom = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ [ Apretá el Joystick 1]";
         this.attacker_player = 1;
         this.offensive_energy = this.home_team.ofe;
         this.defensive_energy = this.away_team.def;
+        this.matter_energy_1 = this.home_team.ofe;
+        this.matter_energy_2 = this.away_team.def;
       }
 
       return this;
@@ -109,31 +113,55 @@ export default {
     get_time() { // Aumenta un time_gap al reloj
       if (this.current_time < 90) {
         this.current_time += 15;
-        this.new_attack();
+        this.get_attacker();
+        this.attack.status = 1; // Comienzo el ataque
       }
-    },
-
-    new_attack() {
-
-      this.get_attacker();
 
     },
 
-    joystick(){
+    check_attack(player){ // Revisa el estado de un ataque y otorga el gol
+      
+      console.log("attack", this.attack);
+      console.log("current_time", this.current_time);
 
-        setTimeout(() => {
-          this.dice = Math.floor(Math.random() * 6) + 1;
+      if(player == 1){
 
-          console.log("this.offensive_energy", this.offensive_energy);
-          console.log("this.dice", this.dice);
+        if(this.attacker_player == 1 ){
+          console.log("está atacando");
+        } else {
+          console.log("está defendiendo");
+        }
 
-          this.attack.offensive = this.offensive_energy + this.dice;
+      } else {
+        console.log("hao");
+      }
 
-          console.log("this.attack.offensive", this.attack.offensive);
+    },
 
-        }, 600);
+    joystick_1(){ // Tira el dado y lo suma a la energía de ataque o defensa dependiendo del minuto
+
+      setTimeout(() => {
+        this.dice = Math.floor(Math.random() * 6) + 1;
+        this.attack.power = this.matter_energy_1 + this.dice;
+        
+        this.check_attack(1);
+
+        return this.attack;
+      }, 600);
+
+    },
+
+    joystick_2(){ // Tira el dado y lo suma a la energía de ataque o defensa dependiendo del minuto
+
+      setTimeout(() => {
+        this.dice = Math.floor(Math.random() * 6) + 1;
+        this.attack.power = this.matter_energy_1 + this.dice;
+
+        this.check_attack(2);
 
 
+        return this.attack;
+      }, 600);
 
     }
 
@@ -222,7 +250,7 @@ export default {
 #joysticks{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 300px;
+  width: 400px;
   justify-items: center;
 }
 
@@ -230,7 +258,7 @@ export default {
   border: 1px solid black;
   border-radius: 5px;
   height: 50px;
-  width: 80px;
+  width: 120px;
   line-height: 50px;
   background-color: #3498db;
   color: white;
