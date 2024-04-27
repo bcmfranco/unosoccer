@@ -1,5 +1,5 @@
 + Terminar new_attack()
 
-++ El ataque ya está sumando bien los dados
-++ Hay que hacer que check_attack cambie el status y dependiendo del minuto en el que va, otorge el gol
-++ Esto tendría que cambiar el marcador y también acá se puede hacer que genere los mensajes
+++ Los joystick tienen que saber si están atacando y defendiedo
+++ Si está atacando genera el attack.power y si está defendiedo, tratar de contrarrestarlo, si no puede, llama a check_attack
+
