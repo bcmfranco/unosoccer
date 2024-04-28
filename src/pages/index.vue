@@ -126,13 +126,29 @@ export default {
 
       if(this.attack_gap < 0){
 
-        this.advice_top = "GOOOOOL";
-        this.advice_medium = "GOOOOOOL";
-        this.advice_top = "GOOOOOL";
+        setTimeout(() => {
+          this.advice_top = "GOOOOOL";
+          this.advice_medium = "GOOOOOOL";
+          this.advice_bottom = "GOOOOOL";
+        }, 1000);
+
+
+
         
         if(this.attacker_player === 1){
+          
+          console.log("hi");
+          console.log("this.match.home_goals", this.match.home_goals);
+
+
           this.match.home_goals = this.match.home_goals+1;
         } else {
+
+          console.log("hao");
+
+          console.log("this.match.away_goals", this.match.away_goals);
+
+
           this.match.away_goals = this.match.away_goals+1;
         }
 
@@ -140,9 +156,11 @@ export default {
 
       } else {
 
-        this.advice_top = "";
-        this.advice_medium = "Continuemos";
-        this.advice_bottom = "";
+        setTimeout(() => {
+          this.advice_top = "";
+          this.advice_medium = "Acá no ha pasado nada";
+          this.advice_bottom = "";
+        }, 1000);
 
       }
 
