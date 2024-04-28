@@ -37,7 +37,7 @@
         match event list
       </div>
 
-      <div id="screen">
+      <div id="advisor">
         <p class="screen_advice">{{ this.advice_top }}</p>
         <p class="screen_advice">{{ this.advice_medium }}</p>
         <p class="screen_advice">{{ this.advice_bottom }}</p>
@@ -131,7 +131,9 @@ export default {
           this.advice_top = "GOOOOOL";
           this.advice_medium = "GOOOOOOL";
           this.advice_bottom = "GOOOOOL";
-        }, 1000);
+
+          this.get_time();
+        }, 2000);
 
         if(this.attacker_player === 1){
           this.match.home_goals++; // Sumo un gol al local
@@ -149,10 +151,7 @@ export default {
           this.advice_bottom = "";
 
           setTimeout(() => {
-
             this.get_time();
-
-
           }, 1000);
 
         }, 1000);
@@ -317,7 +316,17 @@ export default {
   text-align: center;
 }
 
-#screen{
+#match_list{
+  border: 1px solid black;
+  width: 350px;
+  height: 200px;
+  text-align: center;
+}
+
+#advisor{
+  border: 1px solid black;
+  width: 350px;
+  height: 130px;
   text-align: center;
 }
 
