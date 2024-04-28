@@ -26,10 +26,10 @@
       <div id="pointer">
         <div id="time" @click="get_time">{{ this.current_time }}</div>
         <div id="points">
-          <span class="name border_r">NOB</span>
+          <span class="name border_r">{{ this.home_team.coi }}</span>
           <span class="goals border_r">{{ this.match.home_goals }}</span>
           <span class="goals border_r">{{ this.match.away_goals }}</span>
-          <span class="name">IND</span>
+          <span class="name">{{ this.away_team.coi }}</span>
         </div>
       </div>
 
@@ -141,18 +141,11 @@ export default {
           if(this.attacker_player === 1){
             this.match.home_goals++; // Sumo un gol al local
             var new_milestone = this.current_time+ "- "+"Gol de"+this.home_team.coi; 
-            
-            this.match_list.push(new_milestone);
-
-            console.log("match_list", this.match_list);
-
+            this.match_list.push(new_milestone); // Escribo en la match_list
           } else {
             this.match.away_goals++; // Sumo un gol al visitante
             var new_milestone = this.current_time+ "- "+"Gol de"+this.away_team.coi;  
-            
-            this.match_list.push(new_milestone);
-
-            console.log("match_list", this.match_list);
+            this.match_list.push(new_milestone); // Escribo en la match_list
           }
 
           this.get_time();
@@ -336,7 +329,7 @@ export default {
 #match_list{
   border: 1px solid black;
   width: 400px;
-  height: 200px;
+  height: 140px;
   text-align: center;
 }
 
