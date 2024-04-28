@@ -96,10 +96,12 @@ export default {
       if (this.current_time % 2 === 0) {
         this.advice_top = "Ataca "+this.away_team.coi;
         this.advice_medium = this.away_team.coi + " ataca con " + this.away_team.ofe + "+ [ Apretá el Joystick 2]";
+        this.advice_bottom = "";
         this.attacker_player = 2;
       } else {
         this.advice_top = "Ataca "+this.home_team.coi;
         this.advice_medium = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ [ Apretá el Joystick 1]";
+        this.advice_bottom = "";
         this.attacker_player = 1;
       }
 
@@ -189,11 +191,8 @@ export default {
           this.attack.resistance = this.home_team.def + this.dice;
           this.attack.status = 2;
           this.advice_bottom = this.home_team.coi+" se defiende con "+this.home_team.def+" + "+this.dice+ "= "+this.attack.resistance;
-
           this.check_attack();
 
-          // console.log("def", this.home_team.def, "+ dice", this.dice, "resistance", this.attack.resistance);
-          // console.log("attack", this.attack);
           return this.attack;
         }, 600);
 
@@ -211,8 +210,6 @@ export default {
           this.advice_medium = this.away_team.coi + " ataca con " + this.away_team.ofe + "+ "+ this.dice+"= "+this.attack.power;
           this.advice_bottom = this.home_team.coi+" se defiende con "+this.home_team.def+"+ [Apretá el joystick 1]";
 
-          // console.log("ofe", this.away_team.ofe, "+ dice", this.dice, "= attack_power:", this.attack.power);
-          // console.log("attack", this.attack);
           return this.attack;
         }, 600);
 
@@ -225,8 +222,6 @@ export default {
           this.advice_bottom = this.away_team.coi+" se defiende con "+this.away_team.def+" + "+this.dice+ "= "+this.attack.resistance;
           this.check_attack();
 
-          console.log("def", this.away_team.def, "+ dice", this.dice, "resistance", this.attack.resistance);
-          // console.log("attack", this.attack);
           return this.attack;
         }, 600);
 
