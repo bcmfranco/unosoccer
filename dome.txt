@@ -1,5 +1,1 @@
-+ check_attack
-
-++ verificar si la resistencia fue mayor al power, en ese caso resetea los valores a null
-++ caso contrario genera el gol
-++ hay que cambiar también los mensajes en la pantalla, esto sería mejor que lo hiciera una función nueva
++ no suma los goles

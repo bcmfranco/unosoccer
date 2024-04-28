@@ -27,8 +27,8 @@
         <div id="time" @click="get_time">{{ this.current_time }}</div>
         <div id="points">
           <span class="name border_r">NOB</span>
-          <span class="goals border_r">0</span>
-          <span class="goals border_r">0</span>
+          <span class="goals border_r">{{ this.match.home_goals }}</span>
+          <span class="goals border_r">{{ this.match.away_goals }}</span>
           <span class="name">IND</span>
         </div>
       </div>
@@ -86,7 +86,6 @@ export default {
     roll_dice() { // Rola el dado
       setTimeout(() => {
         this.dice = Math.floor(Math.random() * 6) + 1;
-        console.log("dice", this.dice);
       }, 600);
 
       return this.dice;
@@ -134,24 +133,10 @@ export default {
           this.advice_bottom = "GOOOOOL";
         }, 1000);
 
-
-
-        
         if(this.attacker_player === 1){
-          
-          console.log("hi");
-          console.log("this.match.home_goals", this.match.home_goals);
-
-
-          this.match.home_goals = this.match.home_goals+1;
+          this.match.home_goals++; // Sumo un gol al local
         } else {
-
-          console.log("hao");
-
-          console.log("this.match.away_goals", this.match.away_goals);
-
-
-          this.match.away_goals = this.match.away_goals+1;
+          this.match.away_goals++; // Sumo un gol al visitante
         }
 
         return this;
@@ -162,6 +147,14 @@ export default {
           this.advice_top = "";
           this.advice_medium = "Acá no ha pasado nada";
           this.advice_bottom = "";
+
+          setTimeout(() => {
+
+            this.get_time();
+
+
+          }, 1000);
+
         }, 1000);
 
       }
@@ -257,10 +250,6 @@ export default {
   display: grid;
   align-items: center;
   justify-items: center;
-}
-
-#aside_left{
-  border: 1px solid red;
 }
 
 #teams_wrapper{
