@@ -336,8 +336,12 @@ export default {
 #advisor{
   border: 1px solid black;
   width: 400px;
-  height: 130px;
+  height: 100px;
   text-align: center;
+}
+
+#advisor p{
+  margin: 10px;
 }
 
 /* Effects */
