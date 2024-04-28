@@ -34,7 +34,11 @@
       </div>
 
       <div id="match_list">
-        match event list
+        <ul>
+          <li v-for="match in match_list" :key="match">
+            {{ match }}
+          </li>
+        </ul>
       </div>
 
       <div id="advisor">
@@ -66,6 +70,7 @@ export default {
       dice: null,
       current_time: 0,
       time_gap: 15, // Cada cuántos minutos se realiza un ataque
+      match_list: [],
       advice_top: "El partido está por comenzar",
       advice_medium: "La pelota no se mancha",
       advice_bottom : "",     
@@ -75,7 +80,6 @@ export default {
       offensive_energy : 1,
       defensive_energy : 1,
       attack : {"power": null, "resistance": null, "gap": null, "status": 0},
-      diffculty_plumb : 2,
       match: {"home_goals": 0, "away_goals": 0}
     }
   },
@@ -132,14 +136,27 @@ export default {
           this.advice_medium = "GOOOOOOL";
           this.advice_bottom = "GOOOOOL";
 
+          console.log("hi");
+
+          if(this.attacker_player === 1){
+            this.match.home_goals++; // Sumo un gol al local
+            var new_milestone = this.current_time+ "- "+"Gol de"+this.home_team.coi; 
+            
+            this.match_list.push(new_milestone);
+
+            console.log("match_list", this.match_list);
+
+          } else {
+            this.match.away_goals++; // Sumo un gol al visitante
+            var new_milestone = this.current_time+ "- "+"Gol de"+this.away_team.coi;  
+            
+            this.match_list.push(new_milestone);
+
+            console.log("match_list", this.match_list);
+          }
+
           this.get_time();
         }, 2000);
-
-        if(this.attacker_player === 1){
-          this.match.home_goals++; // Sumo un gol al local
-        } else {
-          this.match.away_goals++; // Sumo un gol al visitante
-        }
 
         return this;
 
@@ -318,14 +335,14 @@ export default {
 
 #match_list{
   border: 1px solid black;
-  width: 350px;
+  width: 400px;
   height: 200px;
   text-align: center;
 }
 
 #advisor{
   border: 1px solid black;
-  width: 350px;
+  width: 400px;
   height: 130px;
   text-align: center;
 }

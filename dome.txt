@@ -1,1 +1,4 @@
++ que solo se vea el joystick que tiene que jugar
++ ponerle un poco de salsa al estilo
+
 + poner un mensaje para cuando comienza el segundo tiempo
