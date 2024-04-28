@@ -1,4 +1,5 @@
-+ que solo se vea el joystick que tiene que jugar
-+ ponerle un poco de salsa al estilo
++ Que dure más tiempo el mensaje del gol
+
++ Quitarle list style al history
 
 + poner un mensaje para cuando comienza el segundo tiempo

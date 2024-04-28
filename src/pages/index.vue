@@ -52,8 +52,12 @@
       </div>
 
       <div id="joysticks">
-        <div class="joystick button_down" id="joystick_1" @click="joystick_1(1)">joystick 1</div>
-        <div class="joystick button_down" id="joystick_2" @click="joystick_2(2)">joystick 2</div>
+        <div>
+          <div v-if="active_player===1" class="joystick button_down" id="joystick_1" @click="joystick_1(1)">joystick 1</div>
+        </div>
+        <div>
+          <div v-if="active_player===2" class="joystick button_down" id="joystick_2" @click="joystick_2(2)">joystick 2</div>
+        </div>
       </div>
 
     </aside>
@@ -77,6 +81,7 @@ export default {
       home_team: {"ofe": 4, "def": 5, "name": "Newells Olds Boys", "coi": "NOB"},
       away_team: {"ofe": 7, "def": 4, "name": "Independiente", "coi": "IND"},
       attacker_player: 1,
+      active_player: 1,
       offensive_energy : 1,
       defensive_energy : 1,
       attack : {"power": null, "resistance": null, "gap": null, "status": 0},
@@ -122,12 +127,7 @@ export default {
 
     check_attack(){ // Revisa el estado de un ataque y otorga el gol
 
-      console.log("this.attack.power", this.attack.power);
-      console.log("this.attack.resistance", this.attack.resistance);
-      
       this.attack_gap = parseInt(this.attack.resistance) - parseInt(this.attack.power);
-
-      console.log("attack_gap", this.attack_gap);
 
       if(this.attack_gap < 0){
 
@@ -135,8 +135,6 @@ export default {
           this.advice_top = "GOOOOOL";
           this.advice_medium = "GOOOOOOL";
           this.advice_bottom = "GOOOOOL";
-
-          console.log("hi");
 
           if(this.attacker_player === 1){
             this.match.home_goals++; // Sumo un gol al local
@@ -172,6 +170,8 @@ export default {
 
     joystick_1(){ // Tira el dado y lo suma a la energía de ataque o defensa dependiendo del minuto
 
+      this.active_player = 2;
+
       if(this.attacker_player === 1){ // Player 1 ataca
 
         setTimeout(() => {
@@ -181,8 +181,6 @@ export default {
           this.advice_medium = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ "+ this.dice+"= "+this.attack.power;
           this.advice_bottom = this.away_team.coi+" se defiende con "+this.away_team.def+"+ [Apretá el joystick 2]";
 
-          // console.log("ofe", this.home_team.ofe, "+ dice", this.dice, "= attack_power:", this.attack.power);
-          // console.log("attack", this.attack);
           return this.attack;
         }, 600);
 
@@ -202,6 +200,8 @@ export default {
     },
 
     joystick_2(){ // Tira el dado y lo suma a la energía de ataque o defensa dependiendo del minuto
+
+      this.active_player = 1;
 
       if(this.attacker_player === 2){ // Player 2 ataca
 
