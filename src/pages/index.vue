@@ -39,6 +39,7 @@
 
       <div id="screen">
         <p class="screen_advice">{{ this.advice_top }}</p>
+        <p class="screen_advice">{{ this.advice_medium }}</p>
         <p class="screen_advice">{{ this.advice_bottom }}</p>
       </div>
 
@@ -66,14 +67,16 @@ export default {
       current_time: 0,
       time_gap: 15, // Cada cuántos minutos se realiza un ataque
       advice_top: "El partido está por comenzar",
-      advice_bottom : "La pelota no se mancha",
+      advice_medium: "La pelota no se mancha",
+      advice_bottom : "",     
       home_team: {"ofe": 4, "def": 5, "name": "Newells Olds Boys", "coi": "NOB"},
       away_team: {"ofe": 7, "def": 4, "name": "Independiente", "coi": "IND"},
       attacker_player: 1,
       offensive_energy : 1,
       defensive_energy : 1,
-      attack : {"power": null, "resistance": null, "status": 0},
-      diffculty_plumb : 2
+      attack : {"power": null, "resistance": null, "gap": null, "status": 0},
+      diffculty_plumb : 2,
+      match: {"home_goals": 0, "away_goals": 0}
     }
   },
   mounted() {
@@ -91,17 +94,13 @@ export default {
 
     get_attacker(){ // Determina quién está atacando de acuerdo al timer
       if (this.current_time % 2 === 0) {
-        this.advice_top = "Ataca el Equipo Visitante";
-        this.advice_bottom = this.away_team.coi + " ataca con " + this.away_team.ofe + "+ [ Apretá el Joystick 2]";
+        this.advice_top = "Ataca "+this.away_team.coi;
+        this.advice_medium = this.away_team.coi + " ataca con " + this.away_team.ofe + "+ [ Apretá el Joystick 2]";
         this.attacker_player = 2;
-        this.offensive_energy = this.away_team.ofe;
-        this.defensive_energy = this.home_team.def;
       } else {
-        this.advice_top = "Ataca el Equipo Local";
-        this.advice_bottom = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ [ Apretá el Joystick 1]";
+        this.advice_top = "Ataca "+this.home_team.coi;
+        this.advice_medium = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ [ Apretá el Joystick 1]";
         this.attacker_player = 1;
-        this.offensive_energy = this.home_team.ofe;
-        this.defensive_energy = this.away_team.def;
       }
 
       return this;
@@ -116,24 +115,52 @@ export default {
 
     },
 
-    check_attack(player){ // Revisa el estado de un ataque y otorga el gol
+    check_attack(){ // Revisa el estado de un ataque y otorga el gol
+
+      console.log("this.attack.power", this.attack.power);
+      console.log("this.attack.resistance", this.attack.resistance);
       
-      console.log("attack", this.attack);
-      console.log("current_time", this.current_time);
+      this.attack_gap = parseInt(this.attack.resistance) - parseInt(this.attack.power);
+
+      console.log("attack_gap", this.attack_gap);
+
+      if(this.attack_gap < 0){
+
+        this.advice_top = "GOOOOOL";
+        this.advice_medium = "GOOOOOOL";
+        this.advice_top = "GOOOOOL";
+        
+        if(this.attacker_player === 1){
+          this.match.home_goals = this.match.home_goals+1;
+        } else {
+          this.match.away_goals = this.match.away_goals+1;
+        }
+
+        return this;
+
+      } else {
+
+        this.advice_top = "";
+        this.advice_medium = "Continuemos";
+        this.advice_bottom = "";
+
+      }
 
     },
 
     joystick_1(){ // Tira el dado y lo suma a la energía de ataque o defensa dependiendo del minuto
 
-      if(this.attack.attacker_player === 1){ // Player 1 ataca
+      if(this.attacker_player === 1){ // Player 1 ataca
 
         setTimeout(() => {
           this.dice = Math.floor(Math.random() * 6) + 1;
           this.attack.power = this.home_team.ofe + this.dice;
           this.attack.status = 1;
+          this.advice_medium = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ "+ this.dice+"= "+this.attack.power;
+          this.advice_bottom = this.away_team.coi+" se defiende con "+this.away_team.def+"+ [Apretá el joystick 2]";
 
-          console.log("ofe", this.home_team.ofe, "+ dice", this.dice, "= attack_power:", this.attack.power);
-          console.log("attack", this.attack);
+          // console.log("ofe", this.home_team.ofe, "+ dice", this.dice, "= attack_power:", this.attack.power);
+          // console.log("attack", this.attack);
           return this.attack;
         }, 600);
 
@@ -142,31 +169,50 @@ export default {
         setTimeout(() => {
           this.dice = Math.floor(Math.random() * 6) + 1;
           this.attack.resistance = this.home_team.def + this.dice;
-          var attack_gap = this.attack.resistance - this.attack.power;
           this.attack.status = 2;
+          this.advice_bottom = this.home_team.coi+" se defiende con "+this.home_team.def+" + "+this.dice+ "= "+this.attack.resistance;
 
-          console.log("def", this.home_team.def, "+ dice", this.dice, "resistance", this.attack.resistance, "= attack_gap", attack_gap);
-          console.log("attack", this.attack);    
+          this.check_attack();
+
+          // console.log("def", this.home_team.def, "+ dice", this.dice, "resistance", this.attack.resistance);
+          // console.log("attack", this.attack);
           return this.attack;
         }, 600);
 
       }
-
-
-
     },
 
     joystick_2(){ // Tira el dado y lo suma a la energía de ataque o defensa dependiendo del minuto
 
-      setTimeout(() => {
-        this.dice = Math.floor(Math.random() * 6) + 1;
-        this.attack.power = this.away_team.ofe + this.dice;
+      if(this.attacker_player === 2){ // Player 2 ataca
 
-        console.log("attack", this.attack);
+        setTimeout(() => {
+          this.dice = Math.floor(Math.random() * 6) + 1;
+          this.attack.power = this.away_team.ofe + this.dice;
+          this.attack.status = 1;
+          this.advice_medium = this.away_team.coi + " ataca con " + this.away_team.ofe + "+ "+ this.dice+"= "+this.attack.power;
+          this.advice_bottom = this.home_team.coi+" se defiende con "+this.home_team.def+"+ [Apretá el joystick 1]";
 
-        return this.attack;
-      }, 600);
+          // console.log("ofe", this.away_team.ofe, "+ dice", this.dice, "= attack_power:", this.attack.power);
+          // console.log("attack", this.attack);
+          return this.attack;
+        }, 600);
 
+      } else { // Player 2 defiende 
+
+        setTimeout(() => {
+          this.dice = Math.floor(Math.random() * 6) + 1;
+          this.attack.resistance = this.away_team.def + this.dice;
+          this.attack.status = 2;
+          this.advice_bottom = this.away_team.coi+" se defiende con "+this.away_team.def+" + "+this.dice+ "= "+this.attack.resistance;
+          this.check_attack();
+
+          console.log("def", this.away_team.def, "+ dice", this.dice, "resistance", this.attack.resistance);
+          // console.log("attack", this.attack);
+          return this.attack;
+        }, 600);
+
+      }
     }
 
 

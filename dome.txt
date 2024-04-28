@@ -1,5 +1,5 @@
-+ Terminar new_attack()
++ check_attack
 
-++ Los joystick tienen que saber si están atacando y defendiedo
-++ Si está atacando genera el attack.power y si está defendiedo, tratar de contrarrestarlo, si no puede, llama a check_attack
-
+++ verificar si la resistencia fue mayor al power, en ese caso resetea los valores a null
+++ caso contrario genera el gol
+++ hay que cambiar también los mensajes en la pantalla, esto sería mejor que lo hiciera una función nueva
