@@ -241,137 +241,140 @@ export default {
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-
-#container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: "Montserrat", sans-serif;
-  background-color: #f5f5f5;
-}
-
-#container aside{
-  height: 100%;
-  width: 50%;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-}
-
-#teams_wrapper{
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin: auto;
-  gap: 10px;
-}
-
-.team{
-  border: 1px solid black;
-  height: 40px;
-  display: grid;
-  grid-template-columns: 200px 50px 50px;
-  text-align: center;
-  font-size: 30px;
-}
-
-#pointer{
-  border: 1px solid black;
-  width: 300px;
-  height: 100px;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  text-align: center;
-  font-size: 30px;
-}
-
-#pointer #time{
-  border-bottom: 1px solid black;
-}
-
-#pointer #points{
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr 3fr;
-  line-height: 45px;
-}
-
-#dice{
-  border: 1px solid black;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
-  font-size: 20px;
-  border-radius: 5px;
-}
-
-#joysticks{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 400px;
-  justify-items: center;
-}
-
-.joystick{
-  border: 1px solid black;
-  border-radius: 5px;
-  height: 50px;
-  width: 120px;
-  line-height: 50px;
-  background-color: #3498db;
-  color: white;
-  text-align: center;
-}
-
-#match_list{
-  border: 1px solid black;
-  width: 400px;
-  height: 140px;
-  text-align: center;
-}
-
-#advisor{
-  border: 1px solid black;
-  width: 400px;
-  height: 100px;
-  text-align: center;
-}
-
-#advisor p{
-  margin: 10px;
-}
-
-/* Effects */
-
-.border_r{
-  border-right: 1px solid black;
-}
-
-.button_down{
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.button_down{
-  padding: 10px 20px;
-}
-
-.button_down:active {
-  transform: translateY(10px);
-}
-
-@media (max-width: 480px) {
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
   #container {
     display: flex;
-    flex-direction: column;
-    margin-top: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+    font-family: "Montserrat", sans-serif;
+    background-color: #f5f5f5;
   }
 
-}
+  #container aside{
+    height: 100%;
+    width: 50%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
 
+  #teams_wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+    gap: 10px;
+  }
+
+  .team{
+    border: 1px solid black;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 200px 50px 50px;
+    text-align: center;
+    font-size: 30px;
+    background-color: white;
+  }
+
+  #pointer{
+    border: 1px solid black;
+    width: 300px;
+    height: 100px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
+    font-size: 30px;
+    background-color: white;
+  }
+
+  #pointer #time{
+    border-bottom: 1px solid black;
+  }
+
+  #pointer #points{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 3fr;
+    line-height: 45px;
+  }
+
+  #dice{
+    border: 1px solid black;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: white;
+  }
+
+  #joysticks{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 400px;
+    justify-items: center;
+  }
+
+  .joystick{
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 50px;
+    width: 120px;
+    line-height: 50px;
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #match_list{
+    border: 1px solid black;
+    width: 400px;
+    height: 140px;
+    text-align: center;
+    overflow-y: scroll;
+    background-color: white;
+  }
+
+  #advisor{
+    border: 1px solid black;
+    width: 400px;
+    height: 100px;
+    text-align: center;
+    background-color: white;
+  }
+
+  #advisor p{
+    margin: 10px;
+  }
+
+  /* Effects */
+
+  .border_r{
+    border-right: 1px solid black;
+  }
+
+  .button_down{
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 10px 20px;
+  }
+
+  .button_down:active {
+    transform: translateY(10px);
+  }
+
+  @media (max-width: 480px) {
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 0;
+      height: 100vh;
+    }
+
+  }
 </style>
