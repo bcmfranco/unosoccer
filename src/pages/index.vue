@@ -320,13 +320,16 @@ export default {
   .joystick{
     border: 1px solid black;
     border-radius: 5px;
-    height: 50px;
-    width: 120px;
-    line-height: 50px;
-    background-color: #3498db;
-    color: white;
+    height: 75px;
+    width: 150px;
+    line-height: 40px;
+    background-color: #adadad;
+    font-size: 18px;
+    color: rgb(49, 49, 49);
     text-align: center;
     cursor: pointer;
+    clip-path: polygon(22% 4%, 73% 5%, 96% 8%, 100% 80%, 75% 55%, 28% 53%, 0% 80%, 4% 11%);
+
   }
 
   #match_list{
