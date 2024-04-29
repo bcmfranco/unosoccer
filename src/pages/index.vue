@@ -106,11 +106,13 @@ export default {
         this.advice_medium = this.away_team.coi + " ataca con " + this.away_team.ofe + "+ [ Apretá el Joystick 2]";
         this.advice_bottom = "";
         this.attacker_player = 2;
+        this.active_player = 2;
       } else {
         this.advice_top = "Ataca "+this.home_team.coi;
         this.advice_medium = this.home_team.coi + " ataca con " + this.home_team.ofe + "+ [ Apretá el Joystick 1]";
         this.advice_bottom = "";
         this.attacker_player = 1;
+        this.active_player = 1;
       }
 
       return this;
