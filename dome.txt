@@ -1,5 +1,3 @@
-+ Que dure más tiempo el mensaje del gol
-
 + Quitarle list style al history
 
 + poner un mensaje para cuando comienza el segundo tiempo

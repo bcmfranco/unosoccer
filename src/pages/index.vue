@@ -130,12 +130,11 @@ export default {
       this.attack_gap = parseInt(this.attack.resistance) - parseInt(this.attack.power);
 
       if(this.attack_gap < 0){
+        this.advice_top = "GOOOOOL";
+        this.advice_medium = "GOOOOOOL";
+        this.advice_bottom = "GOOOOOL";
 
         setTimeout(() => {
-          this.advice_top = "GOOOOOL";
-          this.advice_medium = "GOOOOOOL";
-          this.advice_bottom = "GOOOOOL";
-
           if(this.attacker_player === 1){
             this.match.home_goals++; // Sumo un gol al local
             var new_milestone = this.current_time+ "- "+"Gol de"+this.home_team.coi; 
