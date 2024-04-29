@@ -336,6 +336,11 @@ export default {
     text-align: center;
     overflow-y: scroll;
     background-color: white;
+    text-align: left;
+  }
+
+  #match_list li{
+    list-style: none;
   }
 
   #advisor{

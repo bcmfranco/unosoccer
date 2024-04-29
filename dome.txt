@@ -1,3 +1,1 @@
-+ Quitarle list style al history
-
 + poner un mensaje para cuando comienza el segundo tiempo
