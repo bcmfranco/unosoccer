@@ -322,16 +322,17 @@ export default {
   .joystick{
     border: 1px solid black;
     border-radius: 5px;
-    height: 75px;
-    width: 150px;
+    height: 50px;
+    width: 100px;
     line-height: 40px;
     background-color: #adadad;
     font-size: 18px;
-    color: rgb(49, 49, 49);
+    color: rgb(72, 87, 152);
     text-align: center;
     cursor: pointer;
-    clip-path: polygon(22% 4%, 73% 5%, 96% 8%, 100% 80%, 75% 55%, 28% 53%, 0% 80%, 4% 11%);
-
+    -webkit-box-shadow: 5px 6px 5px 0px rgba(72, 87, 152, 1);
+    -moz-box-shadow: 5px 6px 5px 0px rgba(72, 87, 152, 1);
+    box-shadow: 5px 6px 5px 0px rgba(72, 87, 152, 1);
   }
 
   #match_list{

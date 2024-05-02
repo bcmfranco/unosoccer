@@ -1,1 +1,1 @@
-+ Después de defender el primer ataque, el joystick debe quedar en el 2
++ Que el partido empiece al tocar el joystick 1, que eso cambie el tiempo por primera vez
